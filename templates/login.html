@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Login</title>
+    <style>
+        body {
+          background-image: url("photos/isc1.png");
+          background-size: cover;
+          background-position: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          margin: 0;
+          font-family: Arial, sans-serif;
+        }
+  
+        #login-container {
+          background-color: pink;
+          text-align: center;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 20px;
+          width: 250px; /* Adjusted width */
+        }
+  
+        input {
+          display: block;
+          margin: 10px;
+          padding: 10px;
+          font-size: 16px;
+          width: 80%;
+        }
+  
+        button {
+          margin-top: 10px;
+          padding: 10px 20px;
+          font-size: 18px;
+          cursor: pointer;
+        }
+      </style>
+  </head>
+  <body>
+    <div id="login-container">
+      <h1>User Login</h1>
+
+      <!-- Start of form -->
+      <form action="/login" method="post">
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+      <!-- End of form -->
+
+      <p>
+        Don't have an account? <a href="user_registration.html">Register</a>
+      </p>
+    </div>
+  </body>
+</html>

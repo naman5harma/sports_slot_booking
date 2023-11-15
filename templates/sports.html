@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sports List</title>
+</head>
+<body>
+    <h1>Sports</h1>
+    <ul>
+        {% for sport in sports %}
+            <li>{{ sport[1] }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

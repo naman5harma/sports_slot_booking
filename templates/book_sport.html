@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book a Slot</title>
+    <script>
+        function fetchSlots(sportId) {
+            fetch('/slots/' + sportId)
+                .then(response => response.json())
+                .then(data => {
+                    var slotsSelect = document.getElementById('slot_id');
+                    slotsSelect.innerHTML = '';
+                    data.forEach(slot => {
+                        var option = document.createElement('option');
+                        option.value = slot.id;
+                        option.text = slot.time;
+                        slotsSelect.add(option);
+                    });
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Book a Slot</h1>
+    <form action="/book_slot" method="post">
+        <select name="sport_id" onchange="fetchSlots(this.value)" required>
+            <option value="">Select a Sport</option>
+            {% for sport in sports %}
+                <option value="{{ sport[0] }}">{{ sport[1] }}</option>
+            {% endfor %}
+        </select>
+        <select name="slot_id" id="slot_id" required>
+            <option value="">Select a Slot</option>
+            <!-- Slots will be populated here -->
+        </select>
+        <button type="submit">Book Slot</button>
+    </form>
+</body>
+</html>
