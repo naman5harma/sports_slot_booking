@@ -1,14 +1,78 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Home Page</title>
-</head>
-<body>
-    <h1>Welcome to the Sports Slot Booking App!</h1>
-    <a href="/sports">View Sports</a> |
-    <a href="/login">Login</a> |
-    <a href="/register">Register</a> |
-    <a href="/logout">Logout</a> |
-    <a href="/book">Book</a>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ISC Slot Booking System</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        color: #fff;
+        background-image: url("/static/snu-portal.jpg");
+        background-size: cover; /* Fit the image to cover the entire screen */
+        background-repeat: no-repeat; /* Prevent image from repeating */
+        background-position: center; /* Center the background image */
+      }
+
+      h2 {
+        text-align: center;
+        margin-top: 20px;
+        color: #18bc9c;
+      }
+
+      .takeaways {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        border: 2px solid #18bc9c;
+        border-radius: 10px;
+        background-color: rgba(
+          44,
+          62,
+          80,
+          0.7
+        ); /* Background color for the box with some opacity */
+        margin-top: 20px;
+      }
+
+      .takeaway-button {
+        margin: 10px;
+        padding: 15px 30px;
+        font-size: 16px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #3498db;
+        border: 2px solid #3498db;
+        border-radius: 8px;
+        width: 200px;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        box-sizing: border-box;
+      }
+
+      .takeaway-button:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>ISC Slot Booking System!</h2>
+    <div class="takeaways">
+      <a href="/sports" class="takeaway-button">View Sports</a>
+      <a href="/login" class="takeaway-button">Login</a>
+      <a href="/register" class="takeaway-button">Register</a>
+      <a href="/logout" class="takeaway-button">Logout</a>
+      <a href="/book" class="takeaway-button">Book</a>
+    </div>
+  </body>
 </html>
