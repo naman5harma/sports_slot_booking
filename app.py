@@ -78,12 +78,98 @@ def book_slot():
     
     return "Invalid Request", 400
 
+@app.route('/add_admin', methods=['GET','POST'])
+def add_admin():
+    if request.method == 'POST':
+        username = request.form.get('adminUsername')
+        password = request.form.get('adminPassword')
+        cursor = mysql.connection.cursor()
+        try:
+            # Call the stored procedure
+            cursor.callproc('AddAdmin', [username, password])
+            mysql.connection.commit()
+            message = 'Admin added successfully.'
+        except Exception as e:
+            mysql.connection.rollback()
+            message = f'Failed to add admin: {e}'
+        finally:
+            cursor.close()
+        return render_template('admin_feedback.html', message=message)
+    return render_template('add_admin.html')
+
+@app.route('/admin_login', methods=['GET'])
+def admin_login_form():
+    return render_template('admin_login.html')
+
+@app.route('/admin_login', methods=['POST'])
+def admin_login():
+    username = request.form.get('adminUsername')
+    password = request.form.get('adminPassword')
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM admins WHERE admin_username = %s AND admin_password = %s", (username, password))
+    admin = cursor.fetchone()
+    cursor.close()
+
+    if admin:
+        return redirect(url_for('admin_dashboard'))
+    else:
+        return "Invalid credentials", 401
+
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    return render_template('admin_dashboard.html')
+
+@app.route('/view_data')
+def view_data():
+    cursor = mysql.connection.cursor()
+
+    cursor.callproc('GetFormattedBookings')
+    formatted_bookings = cursor.fetchall()
+    cursor.nextset()
+
+    cursor.callproc('GetFormattedSlots')
+    formatted_slots = cursor.fetchall()
+    cursor.nextset()
+
+    # Fetch users
+    cursor.callproc('GetUsers')
+    users = cursor.fetchall()
+    cursor.close()
+    # print(users)
+
+    return render_template('view_data.html', bookings=formatted_bookings, slots=formatted_slots, users=users)
+
+@app.route('/add_slot_page')
+def add_slot_page():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT id, name FROM sports")
+    sports = cursor.fetchall()
+    cursor.close()
+
+    return render_template('add_slot.html', sports=sports)
+
+@app.route('/add_slot', methods=['POST'])
+def add_slot():
+    sport_id = request.form.get('sport_id')
+    slot_type = request.form.get('slot_type')
+    start_time = request.form.get('start_time')
+    end_time = request.form.get('end_time')
+    capacity = request.form.get('capacity')
+
+    cursor = mysql.connection.cursor()
+    cursor.execute("INSERT INTO slots (sport_id, slot_type, start_time, end_time, capacity) VALUES (%s, %s, %s, %s, %s)", 
+                   (sport_id, slot_type, start_time, end_time, capacity))
+    mysql.connection.commit()
+    cursor.close()
+
+    return redirect(url_for('admin_dashboard'))  # Redirect back to the dashboard or a confirmation page
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']  # Hash in production
+        password = request.form['password']
         email = request.form['email']
         phone_number = request.form['phone_number']
         roll_number = request.form['roll_number']

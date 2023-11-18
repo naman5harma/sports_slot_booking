@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Data</title>
+    <!-- Add CSS and other head elements here -->
+</head>
+<body>
+    <h1>Data Overview</h1>
+
+    <section>
+        <h2>Bookings (name, slot ID, time booked)</h2>
+        <ul>
+            {% for booking in bookings %}
+                <li>{{ booking }}</li>  <!-- Adjust according to your data structure -->
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Slots (slot ID, Sport, Type, Timings, Capacity)</h2>
+        <ul>
+            {% for slot in slots %}
+                <li>{{ slot }}</li>  <!-- Adjust according to your data structure -->
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Users (ID, name, password, email, phone number, roll no.)</h2>
+        <ul>
+            {% for user in users %}
+                <li>{{ user }}</li>  <!-- Adjust according to your data structure -->
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>

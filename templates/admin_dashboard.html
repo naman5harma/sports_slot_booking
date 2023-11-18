@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Add your CSS styles here */
+        .dashboard-button {
+            margin: 10px;
+            padding: 10px;
+            /* Additional button styling */
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <a href="{{ url_for('view_data') }}"><button class="dashboard-button">View Data</button></a>
+    <a href="{{ url_for('add_admin') }}"><button class="dashboard-button">Add Admin</button></a>
+    <a href="{{ url_for('add_slot_page') }}"><button class="dashboard-button">Add Slots</button></a>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Slot</title>
+    <!-- Additional head elements here -->
+</head>
+<body>
+    <h1>Add Slot</h1>
+    <form action="/add_slot" method="post">
+        <label for="sport">Sport:</label>
+        <select name="sport_id" id="sport" required>
+            {% for sport in sports %}
+                <option value="{{ sport[0] }}">{{ sport[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="slot_type">Slot Type:</label>
+        <select name="slot_type" id="slot_type" required>
+            <option value="MonWedFri">MonWedFri</option>
+            <option value="TueThuSat">TueThuSat</option>
+        </select>
+
+        <label for="start_time">Start Time:</label>
+        <input type="time" id="start_time" name="start_time" required />
+
+        <label for="end_time">End Time:</label>
+        <input type="time" id="end_time" name="end_time" required />
+
+        <label for="capacity">Capacity:</label>
+        <input type="number" id="capacity" name="capacity" required />
+
+        <button type="submit">Add Slot</button>
+    </form>
+</body>
+</html>
