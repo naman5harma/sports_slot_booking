@@ -1,59 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Admin Dashboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        background-image: url("/static/isc-front.jpg");
+        background-size: 100vw 100vh;
+        /* background-size: cover; Adjust the percentage to compress or scale down the image */
+        background-repeat: no-repeat;
+      }
 
-        h1 {
-            color: #333;
-        }
+      .dashboard-container {
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.2);
+      }
 
-        .dashboard-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 300px;
-        }
+      .dashboard-button {
+        margin: 10px;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #3498db;
+        border: 1px solid #2980b9;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #ffffff;
+        display: block;
+        width: 150px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
 
-        .dashboard-button {
-            display: block;
-            width: 100%;
-            margin: 10px 0;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+      .dashboard-button:hover {
+        background-color: #2980b9;
+      }
 
-        .dashboard-button:hover {
-            background-color: #0056b3;
-        }
+      h1 {
+        color: black;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="dashboard-container">
-        <h1>Admin Dashboard</h1>
-        <a href="{{ url_for('view_data') }}"><button class="dashboard-button">View Data</button></a>
-        <a href="{{ url_for('add_admin') }}"><button class="dashboard-button">Add Admin</button></a>
-        <a href="{{ url_for('add_slot_page') }}"><button class="dashboard-button">Add Slots</button></a>
+      <h1>Admin Dashboard</h1>
+
+      <div style="display: flex; flex-direction: column; align-items: center">
+        <a href="{{ url_for('view_data') }}" class="dashboard-button"
+          >View Data</a
+        >
+        <a href="{{ url_for('add_admin') }}" class="dashboard-button"
+          >Add Admin</a
+        >
+        <a href="{{ url_for('add_slot_page') }}" class="dashboard-button"
+          >Add Slots</a
+        >
+      </div>
     </div>
-</body>
+  </body>
 </html>
