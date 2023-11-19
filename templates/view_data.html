@@ -1,74 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>View Data</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2; /* Background color */
+      }
 
-        h1, h2 {
-            color: #333;
-        }
+      h1 {
+        text-align: center;
+      }
 
-        section {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: 20px;
-            width: 80%;
-            max-width: 600px;
-        }
+      section {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        overflow-y: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        background-color: #ffffff; /* White background color for sections */
+      }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+      h2 {
+        text-align: center;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        color: #333;
+        background-color: #3498db; /* Blue background for heading */
+        color: white; /* White text color */
+        padding: 8px 0; /* Padding for the heading */
+        border-radius: 5px; /* Rounded corners */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+      }
 
-        li {
-            background-color: #e9ecef;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 4px;
-        }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd; /* Lighter border color */
+        padding-bottom: 5px;
+        background-color: #f9f9f9; /* Light gray background for entries */
+        border-radius: 3px; /* Rounded corners for entries */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect for entries */
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Data Overview</h1>
 
     <section>
-        <h2>Bookings (name, slot ID, time booked)</h2>
-        <ul>
-            {% for booking in bookings %}
-                <li>{{ booking }}</li>  <!-- Adjust according to your data structure -->
-            {% endfor %}
-        </ul>
+      <h2>Bookings (name, slot ID, time booked)</h2>
+      <ul>
+        <!-- Adjust according to your data structure -->
+        {% for booking in bookings %}
+        <li>{{ booking }}</li>
+        {% endfor %}
+      </ul>
     </section>
 
     <section>
-        <h2>Slots (slot ID, Sport, Type, Timings, Capacity)</h2>
-        <ul>
-            {% for slot in slots %}
-                <li>{{ slot }}</li>  <!-- Adjust according to your data structure -->
-            {% endfor %}
-        </ul>
+      <h2>Slots (slot ID, Sport, Type, Timings, Capacity)</h2>
+      <ul>
+        <!-- Adjust according to your data structure -->
+        {% for slot in slots %}
+        <li>{{ slot }}</li>
+        {% endfor %}
+      </ul>
     </section>
 
     <section>
-        <h2>Users (ID, name, password, email, phone number, roll no.)</h2>
-        <ul>
-            {% for user in users %}
-                <li>{{ user }}</li>  <!-- Adjust according to your data structure -->
-            {% endfor %}
-        </ul>
+      <h2>Users (ID, name, password, email, phone number, roll no.)</h2>
+      <ul>
+        <!-- Adjust according to your data structure -->
+        {% for user in users %}
+        <li>{{ user }}</li>
+        {% endfor %}
+      </ul>
     </section>
-</body>
+  </body>
 </html>
