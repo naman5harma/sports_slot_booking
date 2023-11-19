@@ -39,25 +39,27 @@ def display_sports():
     return render_template('book_sport.html', sports=sports)
 
 
+
+
 @app.route('/slots/<int:sport_id>')
 def display_slots(sport_id):
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT id, start_time, end_time, slot_type FROM slots WHERE sport_id = %s", (sport_id,))
-    slots = cursor.fetchall()
-    cursor.close()
-    formatted_slots = []
-    for slot in slots:
-        start_time = (datetime.datetime.min + slot[1]).time() 
-        end_time = (datetime.datetime.min + slot[2]).time()  
-        formatted_slot = {
-            "id": slot[0],
-            "start_time": start_time.strftime("%H:%M"), 
-            "end_time": end_time.strftime("%H:%M"),
-            "days": slot[3]
-        }
-        formatted_slots.append(formatted_slot)
-    return render_template('book_slots.html', slots=formatted_slots, sport_id=sport_id)
 
+    # Execute the stored procedure with the new parameter name
+    cursor.execute("CALL GetSlotsForSport(%s)", (sport_id,))
+
+    # Fetch the results
+    slots = cursor.fetchall()
+
+    formatted_slots = [{
+        "id": slot[0],
+        "start_time": slot[1],
+        "end_time": slot[2],
+        "days": slot[3]
+    } for slot in slots]
+
+    cursor.close()
+    return render_template('book_slots.html', slots=formatted_slots, sport_id=sport_id)
 
 @app.route('/book_slot', methods=['POST'])
 def book_slot():
@@ -66,7 +68,7 @@ def book_slot():
     if user_id and slot_id:
         cursor = mysql.connection.cursor()
         try:
-            cursor.execute("INSERT INTO bookings (user_id, slot_id, booking_time) VALUES (%s, %s, NOW())", (user_id, slot_id))
+            cursor.callproc('BookSlot', [user_id, slot_id])
             mysql.connection.commit()
             message = 'Booking Successful'
         except Exception as e:
@@ -78,6 +80,7 @@ def book_slot():
     
     return "Invalid Request", 400
 
+
 @app.route('/add_admin', methods=['GET','POST'])
 def add_admin():
     if request.method == 'POST':
@@ -85,7 +88,6 @@ def add_admin():
         password = request.form.get('adminPassword')
         cursor = mysql.connection.cursor()
         try:
-            # Call the stored procedure
             cursor.callproc('AddAdmin', [username, password])
             mysql.connection.commit()
             message = 'Admin added successfully.'
@@ -135,7 +137,6 @@ def view_data():
     cursor.callproc('GetUsers')
     users = cursor.fetchall()
     cursor.close()
-    # print(users)
 
     return render_template('view_data.html', bookings=formatted_bookings, slots=formatted_slots, users=users)
 
@@ -162,8 +163,7 @@ def add_slot():
     mysql.connection.commit()
     cursor.close()
 
-    return redirect(url_for('admin_dashboard'))  # Redirect back to the dashboard or a confirmation page
-
+    return redirect(url_for('admin_dashboard'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -182,7 +182,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html')
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -200,13 +199,11 @@ def login():
             return 'Invalid credentials'
     return render_template('login.html')
 
-
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
     session.pop('user_id', None)
     return redirect(url_for('home'))
-
 
 if __name__ == '__main__':
     app.run(debug=True)
