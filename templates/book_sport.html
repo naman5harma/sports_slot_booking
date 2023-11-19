@@ -1,72 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Select Sport</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
 
-        form {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 100%;
-            max-width: 300px;
-        }
+      form {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 100%;
+        max-width: 300px;
+      }
 
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            background-color: #007bff;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+      button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      p {
+        margin-top: 50px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Select a Sport to Book a Slot</h1>
     <form action="/book" method="post">
-        <select name="sport_id">
-            <option value="">Select a Sport</option>
-            {% for sport in sports %}
-                <option value="{{ sport[0] }}">{{ sport[1] }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Show Slots</button>
-    </form>    
-</body>
+      <select name="sport_id">
+        <option value="">Select a Sport</option>
+        {% for sport in sports %}
+        <option value="{{ sport[0] }}">{{ sport[1] }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Show Slots</button>
+    </form>
+    <div id="quote-container">
+      <p id="quote"></p>
+    </div>
+    <script>
+      // Array of quotes
+      const quotes = [
+        "The only way to do great work is to love what you do. – Steve Jobs",
+        "Believe you can and you're halfway there. – Theodore Roosevelt",
+        "Strive not to be a success, but rather to be of value. – Albert Einstein",
+        "Success is where preparation and opportunity meet. – Bobby Unser",
+        "The difference between the impossible and the possible lies in a person’s determination. – Tommy Lasorda",
+        "Champions keep playing until they get it right. – Billie Jean King",
+        "Your body can stand almost anything. It's your mind that you have to convince. – Unknown",
+        "The pain you feel today will be the strength you feel tomorrow. – Unknown",
+        "The only bad workout is the one that didn't happen. – Unknown",
+        "The clock is ticking. Are you becoming the person you want to be? – Greg Plitt",
+        // Add more quotes here
+      ];
+
+      // Function to display a random quote
+      function displayRandomQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const quoteElement = document.getElementById("quote");
+        if (quoteElement) {
+          quoteElement.textContent = quotes[randomIndex];
+        }
+      }
+
+      // Display a random quote when the page loads
+      window.addEventListener("load", displayRandomQuote);
+    </script>
+  </body>
 </html>
